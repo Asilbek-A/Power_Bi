@@ -1,0 +1,108 @@
+1. What is the difference between "Merge" and "Append" in Power Query?
+
+Javob:
+
+Merge – jadvallarni kalit ustunlar bo‘yicha bog‘lab qo‘shadi (JOIN).
+
+Append – jadvallarni ustma-ust qo‘shadi (UNION ALL).
+
+2. How do you split a "Full Name" column into "First Name" and "Last Name"?
+
+Javob:
+Transform → Split Column → By Delimiter (space)
+
+3. What is "Pivot Columns" used for?
+
+Javob:
+Bir ustundagi qiymatlarni ustunlarga aylantirib, qiymatlarni (masalan, Sum) bo‘yicha jamlaydi.
+
+4. How do you undo a step in Power Query?
+
+Javob:
+Applied Steps panelida keraksiz step yonidagi ❌ ni bosib o‘chirasiz.
+
+5. What is the purpose of "Reference" vs. "Duplicate" in queries?
+
+Javob:
+
+Duplicate – to‘liq nusxa, mustaqil query.
+
+Reference – asl queryga havola, o‘zgarishlar meros bo‘ladi (tezroq ishlaydi).
+
+6. Merge Orders.csv and Customers.xlsx on CustID (inner join).
+
+Javob:
+Home → Merge Queries → CustID tanlash → Join kind = Inner.
+
+7. Pivot the Product column to show total Quantity per product.
+
+Javob:
+Transform → Pivot Column → Product → Values: Quantity → Aggregation: Sum.
+
+8. Append two tables with identical columns (Orders_Jan.csv + Orders_Feb.csv).
+
+Javob:
+Home → Append Queries → ikkala faylni tanlash → OK.
+
+9. Use "Fill Down" to replace nulls in the Email column.
+
+Javob:
+Transform → Fill → Down.
+
+10. Extract the domain (example.com) from the Email column.
+
+Javob (formula):
+
+= Text.AfterDelimiter([Email], "@")
+
+11. Write M-code to merge queries dynamically based on a parameter (JoinType).
+
+Javob:
+
+let
+    Result =
+        Table.NestedJoin(
+            Customers,
+            {"CustID"},
+            Orders,
+            {"CustID"},
+            "Merged",
+            JoinType
+        )
+in
+    Result
+
+12. Unpivot a table with columns like “Jan_Sales,” “Feb_Sales.”
+
+Javob:
+Transform → Unpivot Columns
+
+13. Handle errors in a custom column (division by zero) using try...otherwise.
+
+Javob:
+
+= try [A] / [B] otherwise 0
+
+14. Create a function to clean phone numbers (remove dashes).
+
+Javob:
+
+(phone as text) as text =>
+let
+    Clean = Text.Select(phone, {"0".."9"})
+in
+    Clean
+
+15. Optimize a query with 10+ steps — identify bottlenecks.
+
+Javob:
+
+Ortiqcha Changed Type steplarni o‘chirish
+
+Duplicate emas, Reference ishlatish
+
+Bir xil transformatsiyalarni bitta stepga birlashtirish
+
+Merge oldidan ustunlarni Trim/Lower qilish
+
+Katta CSV fayllarda profilingni o‘chirib tezlatish
