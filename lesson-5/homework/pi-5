@@ -1,0 +1,69 @@
+Savol – Javob (Power BI Data Modeling)
+1. What is a primary key in a table?
+
+Javob: Primary Key — jadvaldagi har bir qatorni noyob aniqlaydigan ustun (masalan, CustomerID).
+
+2. Name the two types of table relationships in Power BI.
+
+Javob: One-to-Many (1:) va Many-to-One (:1).
+
+3. How do you create a relationship between two tables in Power BI?
+
+Javob: Model view → bir jadvaldan kalit ustunni ikkinchisiga tortasiz → Cardinality ni tanlaysiz → OK.
+
+4. What is a "star schema"?
+
+Javob: Markazda Fact table, atrofida Dimension tablelar bo‘lgan model tuzilmasi.
+
+5. Which table is typically the fact table in a sales dataset?
+
+Javob: Sales jadvali — Fact table.
+
+6. Link Sales.csv to Customers.csv using CustomerID (one-to-many).
+
+Javob: Customers (CustomerID = One) → Sales (CustomerID = Many) qilib bog‘lanadi.
+
+7. Why is ProductID in Sales.csv a foreign key?
+
+Javob: Chunki u Products jadvalidagi ProductID ga ishora qiladi.
+
+8. Fix a relationship error where ProductID has mismatched data types.
+
+Javob: Har ikkala jadvalda ProductID formatini bir xil (Text yoki Whole Number) qilib o‘zgartirish.
+
+9. Explain why a star schema improves performance.
+
+Javob: Model yengillashadi, filtrlar tez ishlaydi, DAX hisoblari optimallashadi, circular bog‘lanish yo‘q.
+
+10. Add a new column TotalSales in Sales (Quantity * Price from Products).
+
+Javob (DAX):
+
+TotalSales = Sales[Quantity] * RELATED(Products[Price])
+
+11. Optimize a model with circular relationships—how would you resolve it?
+
+Javob: Cross filter yo‘nalishini Single qilish, ortiqcha bog‘lanishni o‘chirish, bridge jadval qo‘shish.
+
+12. Create a role-playing dimension for OrderDate and ShipDate.
+
+Javob: Date jadvalidan Duplicate yaratib, OrderDateDim va ShipDateDim qilib alohida bog‘lash.
+
+13. Handle a many-to-many relationship between Customers and Products.
+
+Javob: Bridge table yaratib, Customers → Bridge va Products → Bridge qilib bog‘lash.
+
+14. Use bidirectional filtering sparingly—when is it appropriate?
+
+Javob: Many-to-many yoki bridge table ishlatilganda, ikki tomonga filtr o‘tishi zarur bo‘lganda.
+
+15. Write DAX to enforce referential integrity if a CustomerID is deleted.
+
+Javob (DAX):
+
+ValidCustomer =
+IF(
+    ISBLANK(RELATED(Customers[CustomerID])),
+    "Missing",
+    "Valid"
+)
